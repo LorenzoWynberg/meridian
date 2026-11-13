@@ -5,7 +5,7 @@ import { byDimension, convert, lookup } from './table';
 export interface Io {
   stdout: (text: string) => void;
   stderr: (text: string) => void;
-  isTTY: boolean;
+  isTTY?: boolean;
 }
 
 function usage(): string {
@@ -44,13 +44,15 @@ export function run(argv: string[], io: Io): number {
   if (!from) return fail(`meridian: unknown unit "${fromSym}"`);
   const to = lookup(toSym);
   if (!to) return fail(`meridian: unknown unit "${toSym}"`);
-  const value = raw.trim() === '' ? NaN : Number(raw);
+  const value = /^[+-]?(\d+\.?\d*|\.\d+)([eE][+-]?\d+)?$/.test(raw.trim()) ? Number(raw) : NaN;
   if (!Number.isFinite(value)) return fail(`meridian: not a number: "${raw}"`);
   if (from.dimension !== to.dimension) {
     return fail(
       `meridian: cannot convert ${from.dimension} (${from.symbol}) to ${to.dimension} (${to.symbol})`,
     );
   }
-  io.stdout(format(convert(value, from, to)) + '\n');
+  const result = convert(value, from, to);
+  if (!Number.isFinite(result)) return fail('meridian: result out of range');
+  io.stdout(format(result) + '\n');
   return 0;
 }

@@ -61,4 +61,18 @@ describe('run', () => {
     expect(exec(['10', 'km', 'kg'], true).err).not.toContain('\x1b');
     expect(exec(['10', 'km', 'mi'], true).out).not.toContain('\x1b');
   });
+
+  it('rejects non-decimal literals and out-of-range results', () => {
+    expect(exec(['0x10', 'm', 'km'])).toEqual({
+      code: 2,
+      out: '',
+      err: 'meridian: not a number: "0x10"\n',
+    });
+    expect(exec(['1e308', 'km', 'mm'])).toEqual({
+      code: 2,
+      out: '',
+      err: 'meridian: result out of range\n',
+    });
+    expect(exec(['-1e3', 'm', 'km']).out).toBe('-1\n');
+  });
 });
