@@ -24,6 +24,7 @@ describe('golden vectors', () => {
       expect(typeof v.from).toBe('string');
       expect(typeof v.to).toBe('string');
       expect(typeof v.expected).toBe('string');
+      expect(v.expected, `${v.value} ${v.from}->${v.to}`).toMatch(/^-?\d+(\.\d+)?$/);
     }
   });
 
