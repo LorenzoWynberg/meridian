@@ -1,3 +1,5 @@
 {
-  "builds": [{ "root": ".", "discover": ["packages/*", "apps/*"] }]
+  "builds": [
+    { "root": ".", "discover": ["packages/*/package.json", "apps/*/package.json"] }
+  ]
 }
