@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "build": "vite build && vite build -c vite.config.extension.ts"
+  },
   "trinity": {
     "role": "package",
     "targets": [
@@ -19,5 +22,11 @@
     "embeds": [
       "packages/core"
     ]
+  },
+  "dependencies": {
+    "@meridian/core": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "^8.3.8"
   }
 }
