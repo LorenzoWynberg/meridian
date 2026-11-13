@@ -1,0 +1,29 @@
+{
+  "name": "@meridian/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "trinity": {
+    "role": "package",
+    "targets": [
+      {
+        "type": "CLI",
+        "label": "meridian CLI"
+      }
+    ]
+  },
+  "bin": {
+    "meridian": "dist/meridian.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "tsup": "^9.0.0"
+  }
+}

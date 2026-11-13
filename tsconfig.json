@@ -1,0 +1,16 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": [
+    "packages/*/src",
+    "apps/*/src",
+    "apps/web/extension",
+    "apps/web/vite.config.ts",
+    "apps/web/vite.config.extension.ts",
+    "fixtures",
+    "vitest.config.ts"
+  ]
+}
