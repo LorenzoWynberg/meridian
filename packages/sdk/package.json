@@ -1,0 +1,17 @@
+{
+  "name": "@meridian/sdk",
+  "version": "0.1.0",
+  "type": "module",
+  "trinity": {
+    "role": "package",
+    "targets": [
+      {
+        "type": "Library",
+        "label": "npm library"
+      }
+    ],
+    "embeds": [
+      "packages/core"
+    ]
+  }
+}

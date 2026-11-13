@@ -1,0 +1,122 @@
+[
+  {
+    "value": 1,
+    "from": "in",
+    "to": "m",
+    "expected": "0.0254"
+  },
+  {
+    "value": 1,
+    "from": "mi",
+    "to": "km",
+    "expected": "1.60934"
+  },
+  {
+    "value": 10,
+    "from": "km",
+    "to": "mi",
+    "expected": "6.21371"
+  },
+  {
+    "value": 1,
+    "from": "m",
+    "to": "in",
+    "expected": "39.3701"
+  },
+  {
+    "value": 5,
+    "from": "m",
+    "to": "m",
+    "expected": "5"
+  },
+  {
+    "value": 2.5,
+    "from": "ft",
+    "to": "cm",
+    "expected": "76.2"
+  },
+  {
+    "value": 100,
+    "from": "cm",
+    "to": "m",
+    "expected": "1"
+  },
+  {
+    "value": 1,
+    "from": "yd",
+    "to": "ft",
+    "expected": "3"
+  },
+  {
+    "value": 1,
+    "from": "lb",
+    "to": "kg",
+    "expected": "0.453592"
+  },
+  {
+    "value": 16,
+    "from": "oz",
+    "to": "lb",
+    "expected": "1"
+  },
+  {
+    "value": 1,
+    "from": "kg",
+    "to": "lb",
+    "expected": "2.20462"
+  },
+  {
+    "value": 3,
+    "from": "g",
+    "to": "g",
+    "expected": "3"
+  },
+  {
+    "value": 500,
+    "from": "g",
+    "to": "oz",
+    "expected": "17.637"
+  },
+  {
+    "value": 100,
+    "from": "C",
+    "to": "F",
+    "expected": "212"
+  },
+  {
+    "value": -40,
+    "from": "C",
+    "to": "F",
+    "expected": "-40"
+  },
+  {
+    "value": 0,
+    "from": "C",
+    "to": "K",
+    "expected": "273.15"
+  },
+  {
+    "value": 32,
+    "from": "F",
+    "to": "C",
+    "expected": "0"
+  },
+  {
+    "value": 212,
+    "from": "F",
+    "to": "C",
+    "expected": "100"
+  },
+  {
+    "value": 300,
+    "from": "K",
+    "to": "K",
+    "expected": "300"
+  },
+  {
+    "value": 273.15,
+    "from": "K",
+    "to": "C",
+    "expected": "0"
+  }
+]
