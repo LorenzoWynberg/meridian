@@ -71,6 +71,18 @@ describe('converter form', () => {
     expect(f.output.textContent).toBe('');
   });
 
+  it('accepts a decimal comma but rejects ambiguous or non-decimal forms', () => {
+    const f = setup();
+    type(f.value, '1,5');
+    expect(f.error.hidden).toBe(true);
+    expect(f.output.textContent).toBe('0.932057');
+    for (const bad of ['1,000', '0x1F', '1e3']) {
+      type(f.value, bad);
+      expect(f.value.getAttribute('aria-invalid')).toBe('true');
+      expect(f.output.textContent).toBe('');
+    }
+  });
+
   it('clears result and error on empty value', () => {
     const f = setup();
     type(f.value, 'x');

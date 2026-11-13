@@ -110,7 +110,10 @@ export function mountConverter(root: HTMLElement): void {
       output.textContent = '';
       return;
     }
-    const n = Number(trimmed.replace(',', '.'));
+    // Plain decimals only; a comma is a decimal separator, so "1,000" (ambiguous
+    // with a thousands separator) is rejected rather than read as 1.
+    const plain = /^[+-]?(\d+([.,]\d+)?|[.,]\d+)$/.test(trimmed) && !/,\d{3}$/.test(trimmed);
+    const n = plain ? Number(trimmed.replace(',', '.')) : NaN;
     if (!Number.isFinite(n)) {
       showError('Enter a number, for example 10 or 3.5.');
       return;
