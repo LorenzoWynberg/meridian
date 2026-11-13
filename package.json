@@ -2,7 +2,7 @@
   "name": "meridian",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@12.18.0",
+  "packageManager": "pnpm@11.10.0",
   "scripts": {
     "build": "pnpm -r --if-present build",
     "test": "vitest run",
