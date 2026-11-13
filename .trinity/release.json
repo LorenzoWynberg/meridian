@@ -1,0 +1,15 @@
+{
+  "groups": [
+    {
+      "name": "meridian",
+      "relationship": "independent",
+      "tagPattern": "{package}@{major}.{minor}.{patch}",
+      "packages": [
+        "packages/sdk",
+        "apps/web",
+        "apps/cli"
+      ]
+    }
+  ],
+  "prereleasePointer": "next"
+}
