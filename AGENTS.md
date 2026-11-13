@@ -1,3 +1,17 @@
+<!-- TRINITY-MANAGED-START -->
+
+## Documentation
+
+`meridian` is a repo of the meridian project. Trinity generates this section from the project packages and rewrites it whenever they change, so write your own notes outside it.
+
+Each package in this repo carries its own `AGENTS.md`, and its documentation starts at:
+
+- `packages/sdk/` (npm library): [`packages/sdk/.trinity/docs/index.md`](packages/sdk/.trinity/docs/index.md)
+- `apps/web/` (GitHub Pages, Browser extension): [`apps/web/.trinity/docs/index.md`](apps/web/.trinity/docs/index.md)
+- `apps/cli/` (meridian CLI): [`apps/cli/.trinity/docs/index.md`](apps/cli/.trinity/docs/index.md)
+
+<!-- TRINITY-MANAGED-END -->
+
 # meridian
 
 Meridian is a small unit converter (length, mass, temperature) in one pnpm workspace with one
