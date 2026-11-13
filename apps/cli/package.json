@@ -1,0 +1,14 @@
+{
+  "name": "@meridian/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "trinity": {
+    "role": "package",
+    "targets": [
+      {
+        "type": "CLI",
+        "label": "meridian CLI"
+      }
+    ]
+  }
+}

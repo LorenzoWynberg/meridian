@@ -1,0 +1,23 @@
+{
+  "name": "@meridian/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "trinity": {
+    "role": "package",
+    "targets": [
+      {
+        "type": "Web App",
+        "label": "GitHub Pages"
+      },
+      {
+        "type": "Extension",
+        "label": "Browser extension",
+        "review": true
+      }
+    ],
+    "embeds": [
+      "packages/core"
+    ]
+  }
+}
