@@ -10,5 +10,20 @@
         "label": "meridian CLI"
       }
     ]
+  },
+  "bin": {
+    "meridian": "dist/meridian.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup"
+  },
+  "devDependencies": {
+    "tsup": "^9.0.0"
   }
 }
