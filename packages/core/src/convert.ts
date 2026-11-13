@@ -1,21 +1,34 @@
-import { findUnit } from './units';
+import { UNITS } from './units';
 
-const toKelvin = (value: number, symbol: string): number =>
-  symbol === 'C' ? value + 273.15 : symbol === 'F' ? ((value - 32) * 5) / 9 + 273.15 : value;
+export type ConversionErrorCode = 'UNKNOWN_UNIT' | 'DIMENSION_MISMATCH' | 'INVALID_VALUE';
 
-const fromKelvin = (value: number, symbol: string): number =>
-  symbol === 'C' ? value - 273.15 : symbol === 'F' ? ((value - 273.15) * 9) / 5 + 32 : value;
+export class ConversionError extends Error {
+  code: ConversionErrorCode;
 
-/** Convert `value` between two unit symbols of the same dimension. Throws on unknown or mismatched units. */
-export function convert(value: number, from: string, to: string): number {
-  const a = findUnit(from);
-  const b = findUnit(to);
-  if (!a) throw new Error(`Unknown unit: ${from}`);
-  if (!b) throw new Error(`Unknown unit: ${to}`);
-  if (a.dimension !== b.dimension) {
-    throw new Error(`Cannot convert ${a.dimension} (${from}) to ${b.dimension} (${to})`);
+  constructor(code: ConversionErrorCode, message: string) {
+    super(message);
+    this.name = 'ConversionError';
+    this.code = code;
   }
-  if (from === to) return value;
-  if (a.dimension === 'temperature') return fromKelvin(toKelvin(value, from), to);
-  return (value * a.factor) / b.factor;
+}
+
+const lookup = (symbol: string) => (Object.hasOwn(UNITS, symbol) ? UNITS[symbol] : undefined);
+
+/** Convert `value` between two unit symbols of the same dimension. */
+export function convert(value: number, from: string, to: string): number {
+  const a = lookup(from);
+  const b = lookup(to);
+  if (!a) throw new ConversionError('UNKNOWN_UNIT', `Unknown unit: ${from}`);
+  if (!b) throw new ConversionError('UNKNOWN_UNIT', `Unknown unit: ${to}`);
+  if (a.dimension !== b.dimension) {
+    throw new ConversionError(
+      'DIMENSION_MISMATCH',
+      `Cannot convert ${a.dimension} (${from}) to ${b.dimension} (${to})`,
+    );
+  }
+  if (!Number.isFinite(value)) {
+    throw new ConversionError('INVALID_VALUE', `Value is not finite: ${value}`);
+  }
+  const si = value * a.scale + a.offset;
+  return (si - b.offset) / b.scale;
 }

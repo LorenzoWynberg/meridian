@@ -1,4 +1,5 @@
-export { UNITS, findUnit } from './units';
-export type { Dimension, Unit } from './units';
-export { convert } from './convert';
-export { formatValue } from './format';
+export { UNITS, unitsFor } from './units';
+export type { Dimension, UnitDef } from './units';
+export { convert, ConversionError } from './convert';
+export type { ConversionErrorCode } from './convert';
+export { format } from './format';
