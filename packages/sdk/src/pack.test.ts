@@ -52,7 +52,7 @@ describe('packed @meridian/sdk', () => {
   it('packs only the manifest, readme, license and dist', () => {
     const top = ['package.json', 'README.md', 'LICENSE'];
     for (const f of top) expect(entries).toContain(f);
-    for (const f of ['dist/index.js', 'dist/index.cjs', 'dist/index.d.ts']) {
+    for (const f of ['dist/index.js', 'dist/index.cjs', 'dist/index.d.ts', 'dist/index.d.cts']) {
       expect(entries).toContain(f);
     }
     for (const e of entries) {
@@ -66,6 +66,15 @@ describe('packed @meridian/sdk', () => {
     const parsed = JSON.parse(manifest) as { dependencies?: Record<string, string> };
     expect(Object.keys(parsed.dependencies ?? {})).not.toContain('@meridian/core');
     expect(manifest).not.toContain('workspace:');
+  });
+
+  it('ships self-contained type declarations', () => {
+    for (const f of ['dist/index.d.ts', 'dist/index.d.cts']) {
+      const dts = run('tar', ['-xzOf', tgz, `package/${f}`], tmp);
+      expect(dts).not.toContain('@meridian/core');
+      expect(dts).not.toMatch(/from\s+['"]\.\.?\//);
+      expect(dts).toContain('convert');
+    }
   });
 
   it('works from ESM and CJS with core bundled in', () => {
