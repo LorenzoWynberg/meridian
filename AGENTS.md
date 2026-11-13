@@ -39,4 +39,6 @@ Tests sit beside their subject, inside the package (or `fixtures/`) whose code t
 ## Release rule
 
 The repo carries no release, publish, changeset or version-bump tooling, because Trinity owns the
-release. Add no `.github/` workflows or Docker files.
+release. The only workflow is `.github/workflows/pages.yml`, which deploys the web page to GitHub
+Pages on push to `main` (a person accepted it); add no other `.github/` workflows, no publish or
+release step, and no Docker files.
