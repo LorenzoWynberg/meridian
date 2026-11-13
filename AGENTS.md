@@ -20,9 +20,11 @@ the stack.
 
 ## Discovery rule
 
-Packages are found through the discover globs in `.trinity/structure.json` plus each folder's
-`trinity` declaration in its `package.json`. A new package declares itself there, with target
-types spelled exactly (`Library`, `Web App`, `Extension`, `CLI`).
+The `discover` globs in `.trinity/structure.json` match declaration files, never folders. A
+declaration file is a folder's `package.json` that carries a top-level `trinity` object. A new
+package must sit where an existing glob reaches its `package.json`, or a glob must be added for
+it. A package declares itself there, with target types spelled exactly (`Library`, `Web App`,
+`Extension`, `CLI`).
 
 ## Layering rule
 
