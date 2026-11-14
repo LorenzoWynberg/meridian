@@ -44,4 +44,5 @@ The repo carries no release, publish, changeset or version-bump tooling, because
 release. Add no Docker files. The one `.github/` workflow is `.github/workflows/pages.yml`, which
 deploys the web page to GitHub Pages on push to `main` (or a manual dispatch), so the live site
 changes when a release ships and never from integrated, unshipped work on dev. Add no other
-workflows.
+workflows. A package's `prepack` hook that only runs its build (as in `packages/sdk`) is
+publish-readiness, not release tooling, and must stay: a pack from a fresh checkout has no `dist/`.
