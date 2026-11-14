@@ -1,0 +1,5 @@
+{
+  "length": ["cm", "ft", "in", "km", "m", "mi", "mm", "yd"],
+  "mass": ["g", "kg", "lb", "oz"],
+  "temperature": ["C", "F", "K"]
+}

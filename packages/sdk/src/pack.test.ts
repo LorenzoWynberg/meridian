@@ -38,6 +38,14 @@ describe('packed @meridian/sdk', () => {
       join(scratch, 'cjs.cjs'),
       "const { convert, format } = require('@meridian/sdk');\nconsole.log(format(convert(10, 'km', 'mi')));\n",
     );
+    writeFileSync(
+      join(scratch, 'esm-list.mjs'),
+      "import { listUnits } from '@meridian/sdk';\nconsole.log(listUnits('mass').join(','));\n",
+    );
+    writeFileSync(
+      join(scratch, 'cjs-list.cjs'),
+      "const { listUnits } = require('@meridian/sdk');\nconsole.log(listUnits('mass').join(','));\n",
+    );
     const install = ['install', tgz, '--no-audit', '--no-fund'];
     try {
       run('npm', [...install, '--offline'], scratch);
@@ -94,7 +102,13 @@ describe('packed @meridian/sdk', () => {
       expect(dts).not.toContain('@meridian/core');
       expect(dts).not.toMatch(/from\s+['"]\.\.?\//);
       expect(dts).toContain('convert');
+      expect(dts).toContain('listUnits');
     }
+  });
+
+  it('exposes listUnits from ESM and CJS', () => {
+    expect(run(process.execPath, ['esm-list.mjs'], scratch).trim()).toBe('g,kg,lb,oz');
+    expect(run(process.execPath, ['cjs-list.cjs'], scratch).trim()).toBe('g,kg,lb,oz');
   });
 
   it('works from ESM and CJS with core bundled in', () => {
