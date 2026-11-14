@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import pkg from '../package.json';
 import { run } from './run';
@@ -74,5 +75,46 @@ describe('run', () => {
       err: 'meridian: result out of range\n',
     });
     expect(exec(['-1e3', 'm', 'km']).out).toBe('-1\n');
+  });
+
+  describe('units', () => {
+    const lists = JSON.parse(
+      readFileSync(new URL('../../../fixtures/unit-lists.json', import.meta.url), 'utf8'),
+    ) as Record<string, string[]>;
+
+    it('lists each kind as in the fixture', () => {
+      for (const [kind, symbols] of Object.entries(lists)) {
+        const r = exec(['units', kind]);
+        expect(r.code).toBe(0);
+        expect(r.err).toBe('');
+        expect(r.out.split('\n').slice(0, -1)).toEqual(symbols);
+      }
+      expect(exec(['units', 'length']).out).toBe('cm\nft\nin\nkm\nm\nmi\nmm\nyd\n');
+    });
+
+    it('rejects unknown kinds on one stderr line', () => {
+      for (const k of ['parsec', 'toString']) {
+        expect(exec(['units', k])).toEqual({
+          code: 2,
+          out: '',
+          err: `meridian: unknown kind "${k}" (valid: length, mass, temperature)\n`,
+        });
+      }
+    });
+
+    it('rejects bad usage', () => {
+      for (const argv of [['units'], ['units', 'length', 'extra'], ['units', '-x']]) {
+        const r = exec(argv);
+        expect(r.code).toBe(2);
+        expect(r.out).toBe('');
+        expect(r.err).toContain('Usage');
+      }
+    });
+
+    it('is documented in help', () => {
+      const h = exec(['--help']).out;
+      expect(h).toContain('units <kind>');
+      expect(h).toContain('meridian 10 km mi');
+    });
   });
 });
