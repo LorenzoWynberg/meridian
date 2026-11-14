@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1 - 2026-11-13
+
+### Highlights
+
+**Yard conversions are now fully covered by tests.** The yard (`yd`) unit was already available in `@meridian/sdk`, the web converter on GitHub Pages and the browser extension. Before this release, only one test checked it. New tests now check yard conversions to and from metres, kilometres, miles and feet. They pin the exact international yard (1 yd = 0.9144 m), so if the shared conversion table is changed later and a yard result drifts, the build fails before anything ships.
+
+### Changed
+
+Nothing. Conversion results, unit names and the SDK API stay the same. The `meridian` CLI keeps its own conversion table and is not affected by this release.
+
 ## 0.1.0 - 2026-11-13
 
 ### Highlights
