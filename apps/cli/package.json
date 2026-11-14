@@ -21,7 +21,8 @@
     "node": ">=18"
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "release:check": "node -e \"console.error('meridian CLI release check: held on purpose (live test of a red package gate)'); process.exit(1)\""
   },
   "devDependencies": {
     "tsup": "^9.0.0"
