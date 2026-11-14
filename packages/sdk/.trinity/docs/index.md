@@ -14,3 +14,4 @@ Tests run as the `sdk` Vitest project (node environment), declared in the root `
 
 - [Build and pack](tech-guide/packaging/build-and-pack.md): how the tarball is built, what it contains, and how it is tested.
 - [listUnits](tech-guide/api/list-units.md): the unit-listing export, its ordering and its error.
+- [hasUnit](tech-guide/api/has-unit.md): the unit-membership check built on `listUnits`.
