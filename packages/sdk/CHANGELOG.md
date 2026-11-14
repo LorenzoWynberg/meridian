@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.1 - 2026-11-13
+
+### Highlights
+
+**`@meridian/sdk` now ships the code you install (npm library).** The 0.1.0 release of `@meridian/sdk` contained only `LICENSE`, `README.md` and `package.json`, so it gave you nothing to import. From 0.1.1 on, the published package includes its built `dist`, with the conversion logic bundled in and no runtime dependencies. If you're on 0.1.0, upgrade to 0.1.1 or later and your imports will resolve without code changes.
+
+**Broken packages are caught before they publish.** Packing the SDK now always builds it first. A check also fails the release if `dist` or any declared entry point is missing from the packed tarball, so the empty-package problem from 0.1.0 can't reach npm again.
+
+This release changes nothing in the web page, the browser extension or the `meridian` CLI.
+
 ## 0.1.0 - 2026-11-13
 
 ### Highlights
