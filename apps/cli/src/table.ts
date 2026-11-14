@@ -49,3 +49,8 @@ export function byDimension(): Record<Dimension, string[]> {
   for (const unit of Object.values(table)) out[unit.dimension].push(unit.symbol);
   return out;
 }
+
+export function symbolsOf(kind: string): string[] | undefined {
+  const groups = byDimension();
+  return Object.hasOwn(groups, kind) ? [...groups[kind as Dimension]].sort() : undefined;
+}
