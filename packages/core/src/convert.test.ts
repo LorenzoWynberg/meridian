@@ -69,3 +69,29 @@ describe('units', () => {
     expect(unitsFor('mass').map((u) => u.symbol)).toEqual(['kg', 'g', 'lb', 'oz']);
   });
 });
+
+describe('yard', () => {
+  it('converts between yards and metric', () => {
+    expect(convert(1, 'yd', 'm')).toBe(0.9144);
+    expect(convert(0.9144, 'm', 'yd')).toBe(1);
+    expect(convert(1, 'm', 'yd')).toBeCloseTo(1 / 0.9144, 10);
+    expect(convert(1, 'yd', 'km')).toBe(0.0009144);
+    expect(convert(1, 'km', 'yd')).toBeCloseTo(1000 / 0.9144, 8);
+  });
+
+  it('converts between yards and miles', () => {
+    expect(convert(1, 'mi', 'yd')).toBe(1760);
+    expect(convert(1760, 'yd', 'mi')).toBe(1);
+    expect(convert(1, 'yd', 'mi')).toBeCloseTo(1 / 1760, 12);
+  });
+
+  it('converts between yards and feet', () => {
+    expect(convert(1, 'yd', 'ft')).toBe(3);
+    expect(convert(3, 'ft', 'yd')).toBeCloseTo(1, 12);
+  });
+
+  it('is listed in the catalogue', () => {
+    expect(unitsFor('length').map((u) => u.symbol)).toContain('yd');
+    expect(UNITS.yd).toMatchObject({ name: 'yard', dimension: 'length', scale: 0.9144, offset: 0 });
+  });
+});
