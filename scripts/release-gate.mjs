@@ -1,3 +1,4 @@
+/* global process, console */
 // Runs each folder's `release:check` script, when it declares one.
 // Usage: node scripts/release-gate.mjs <folder>...
 import { execFileSync } from 'node:child_process';
