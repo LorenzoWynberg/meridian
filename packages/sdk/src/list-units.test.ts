@@ -12,6 +12,8 @@ describe('listUnits', () => {
     for (const kind of ['length', 'mass', 'temperature'] as const) {
       expect(listUnits(kind)).toEqual(fixture[kind]);
     }
+    expect(listUnits('length')).toEqual(['cm', 'ft', 'in', 'km', 'm', 'mi', 'mm', 'yd']);
+    expect(listUnits('mass')).toEqual(['g', 'kg', 'lb', 'oz']);
     expect(listUnits('temperature')).toEqual(['C', 'F', 'K']);
   });
 
