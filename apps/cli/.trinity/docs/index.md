@@ -11,4 +11,5 @@ Tests run as the `cli` Vitest project (node environment), declared in the root `
 ## Guides
 
 - [Converting a value](user-guide/usage/convert.md)
+- [Listing units](user-guide/usage/units.md)
 - [CLI structure](tech-guide/cli/structure.md)
