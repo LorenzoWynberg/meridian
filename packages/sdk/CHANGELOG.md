@@ -1,5 +1,29 @@
 # Changelog
 
+## [Unreleased]
+
+### 0.3.0-rc.2
+
+#### New
+
+##### `hasUnit(kind, symbol)` in `@meridian/sdk`
+
+The npm library adds `hasUnit(kind, symbol)`, which tells you in one call whether a symbol is a unit of a given kind. For example, `hasUnit('length', 'km')` is `true` and `hasUnit('mass', 'km')` is `false`. Use it to check input before calling `convert`.
+
+The check matches symbols exactly and is case-sensitive, so `'C'` is a temperature unit and `'c'` is not. Because `hasUnit` checks against `listUnits(kind)`, the two always agree. An unknown kind throws the same `RangeError` as `listUnits`.
+
+This release changes only the SDK. `@meridian/core`, the CLI and the web app are unchanged.
+
+### 0.3.0-rc.1
+
+#### Highlights
+
+##### SDK: new `unitCount(kind)` export
+
+`@meridian/sdk` now exports `unitCount(kind)`, which returns the number of units for `'length'` (8), `'mass'` (4) or `'temperature'` (3). It is built on `listUnits(kind)`, so the count and the list always agree. An unknown kind throws the same `RangeError` as `listUnits`.
+
+The change only adds an export, and nothing existing is affected. The web converter, the browser extension and the `meridian` CLI have no user-facing changes in this release.
+
 ## 0.2.0 - 2026-11-14
 
 ### Highlights
