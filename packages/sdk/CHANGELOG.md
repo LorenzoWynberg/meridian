@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+
+### 0.3.0-rc.1
+
+#### Highlights
+
+##### SDK: new `unitCount(kind)` export
+
+`@meridian/sdk` now exports `unitCount(kind)`, which returns the number of units for `'length'` (8), `'mass'` (4) or `'temperature'` (3). It is built on `listUnits(kind)`, so the count and the list always agree. An unknown kind throws the same `RangeError` as `listUnits`.
+
+The change only adds an export, and nothing existing is affected. The web converter, the browser extension and the `meridian` CLI have no user-facing changes in this release.
+
 ## 0.2.0 - 2026-11-14
 
 ### Highlights
