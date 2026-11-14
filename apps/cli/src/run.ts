@@ -1,6 +1,6 @@
 import pkg from '../package.json';
 import { format } from './format';
-import { byDimension, convert, lookup } from './table';
+import { byDimension, convert, lookup, symbolsOf } from './table';
 
 export interface Io {
   stdout: (text: string) => void;
@@ -12,6 +12,7 @@ function usage(): string {
   const groups = byDimension();
   const lines = [
     'Usage: meridian <value> <from> <to>',
+    '       meridian units <kind>',
     '',
     'Units:',
     ...Object.entries(groups).map(([dim, units]) => `  ${dim}: ${units.join(' ')}`),
@@ -35,6 +36,19 @@ export function run(argv: string[], io: Io): number {
     io.stderr((useColor ? `\x1b[31m${msg}\x1b[0m` : msg) + '\n');
     return 2;
   };
+  if (argv[0] === 'units') {
+    if (argv.length !== 2 || argv[1].startsWith('-')) {
+      io.stderr(usage());
+      return 2;
+    }
+    const symbols = symbolsOf(argv[1]);
+    if (!symbols) {
+      const kinds = Object.keys(byDimension()).join(', ');
+      return fail(`meridian: unknown kind "${argv[1]}" (valid: ${kinds})`);
+    }
+    io.stdout(symbols.join('\n') + '\n');
+    return 0;
+  }
   if (argv.some((a) => a.startsWith('-') && !/^-?\.?\d/.test(a)) || argv.length !== 3) {
     io.stderr(usage());
     return 2;
