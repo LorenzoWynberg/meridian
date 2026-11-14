@@ -1,0 +1,10 @@
+{
+  "domains": [],
+  "rules": [],
+  "spine": [],
+  "commands": {
+    "scoped": "node scripts/release-gate.mjs {folders}",
+    "full": "pnpm test",
+    "check": "pnpm typecheck"
+  }
+}
