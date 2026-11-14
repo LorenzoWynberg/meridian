@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.2.0 - 2026-11-14
+
+### Highlights
+
+#### See which units a kind supports, in code or in the terminal
+
+Meridian can now tell you which unit symbols it accepts for each kind, so you don't have to guess or copy the table yourself.
+
+**`@meridian/sdk`** exports `listUnits(kind)`. It takes `'length'`, `'mass'` or `'temperature'` and returns that kind's symbols, for example `['g', 'kg', 'lb', 'oz']` for mass. Each call returns a new array. An unknown kind throws a `RangeError` that names the valid kinds. It works from both ESM and CommonJS, and its TypeScript types are included.
+
+**The `meridian` CLI** adds `meridian units <kind>`, which prints one symbol per line to stdout so you can pipe the output into other tools. Errors follow the CLI's existing rules: exit code `2` and nothing on stdout. An unknown kind is reported on stderr along with the valid kinds, and a missing or extra argument prints the usage text. `--help` lists the new command.
+
+Both return the same lists, sorted by code point (uppercase before lowercase):
+
+| Kind          | Units                    |
+| ------------- | ------------------------ |
+| `length`      | `cm ft in km m mi mm yd` |
+| `mass`        | `g kg lb oz`             |
+| `temperature` | `C F K`                  |
+
+The CLI still uses its own conversion table, but both the SDK and the CLI are tested against the same list, so they report the same units.
+
 ## 0.1.2 - 2026-11-13
 
 ### Highlights
