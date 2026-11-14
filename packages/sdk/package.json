@@ -39,7 +39,8 @@
     "directory": "packages/sdk"
   },
   "scripts": {
-    "build": "tsup"
+    "build": "tsup",
+    "prepack": "tsup"
   },
   "devDependencies": {
     "@meridian/core": "workspace:*",

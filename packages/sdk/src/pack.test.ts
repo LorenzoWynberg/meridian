@@ -17,7 +17,8 @@ const run = (cmd: string, args: string[], cwd: string): string =>
 
 describe('packed @meridian/sdk', () => {
   beforeAll(() => {
-    run('pnpm', ['run', 'build'], pkgDir);
+    // A fresh checkout has no dist/: only the package's prepack hook may create it.
+    rmSync(join(pkgDir, 'dist'), { recursive: true, force: true });
     run('pnpm', ['pack', '--pack-destination', tmp], pkgDir);
     tgz = join(tmp, readdirSync(tmp).find((f) => f.endsWith('.tgz')) ?? 'missing.tgz');
     entries = run('tar', ['-tzf', tgz], tmp)
@@ -59,6 +60,25 @@ describe('packed @meridian/sdk', () => {
       if (!top.includes(e)) expect(e.startsWith('dist/')).toBe(true);
       expect(e).not.toMatch(/src\/|\.test\.ts|tsconfig/);
     }
+  });
+
+  it('packs dist and every entry point the manifest names', () => {
+    expect(entries.some((e) => e.startsWith('dist/'))).toBe(true);
+    const parsed = JSON.parse(run('tar', ['-xzOf', tgz, 'package/package.json'], tmp)) as {
+      main?: string;
+      module?: string;
+      types?: string;
+      exports?: Record<string, unknown>;
+    };
+    const dot = (parsed.exports?.['.'] ?? {}) as Record<string, unknown>;
+    const paths: string[] = [];
+    const collect = (v: unknown): void => {
+      if (typeof v === 'string') paths.push(v);
+      else if (v && typeof v === 'object') Object.values(v).forEach(collect);
+    };
+    collect([parsed.main, parsed.module, parsed.types, dot]);
+    expect(paths.length).toBeGreaterThanOrEqual(7);
+    for (const p of paths) expect(entries).toContain(p.replace(/^\.\//, ''));
   });
 
   it('ships a manifest without workspace or core dependencies', () => {
